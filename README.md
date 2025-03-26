@@ -2,6 +2,19 @@
 
 This project is a Spring Boot application for managing a collection of movies. It includes features for adding, editing, deleting, and searching movies. The application uses Thymeleaf for rendering views and Lombok for reducing boilerplate code.
 
+## Dependencies
+
+The project uses the following dependencies:
+
+- **Spring Boot Starter**: Core starter, including auto-configuration support, logging, and YAML.
+- **Spring Boot Starter Test**: Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest, and Mockito.
+- **Lombok**: Java library that helps to reduce boilerplate code.
+- **Spring Boot Starter Data JPA**: Starter for using Spring Data JPA with Hibernate.
+- **MySQL Connector**: JDBC driver for MySQL.
+- **Spring Boot Starter Web**: Starter for building web, including RESTful, applications using Spring MVC.
+- **Spring Boot Starter Thymeleaf**: Starter for building MVC web applications using Thymeleaf views.
+- **Spring Boot DevTools**: Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
+
 ## Features
 
 - **Add Movie**: Add new movies to the collection.
@@ -210,14 +223,3 @@ public class SampleMovieData {
 </html>
 ```
 
-## Running the Application
-
-1. Clone the repository.
-2. Navigate to the project directory.
-3. Run the application using the command: `mvn spring-boot:run`.
-
-## License
-
-This project is licensed under the MIT License.
-
-`
