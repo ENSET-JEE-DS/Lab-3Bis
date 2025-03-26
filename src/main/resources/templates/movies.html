@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies list</title>
+    <style>
+        * {
+            font-family: Calibri, serif;
+        }
+
+        .movieList {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .movieTile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<h1>This page represents the list of movies our application has.</h1>
+
+<div>
+    <div>
+        <h2>Movies</h2>
+    </div>
+    <div class="movieList" th:each="movie : ${movies}">
+        <div class="movieTile">
+            <img th:src="${movie.img_url}" th:alt="${movie.title}">
+            <a th:text="${movie.title}" th:href="@{/movies/{id}(id=${movie.id})}"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
