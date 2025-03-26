@@ -129,6 +129,11 @@
             <h1>Fill in the details of the movie</h1>
         </div>
 
+        <div class="form-group" th:if="${operation == 'edit'}">
+            <label class="form-label" for="id">Movie ID</label>
+            <input class="form-input" type="text" id="id" name="id" th:value="${movie.id}" readonly>
+        </div>
+
         <div class="form-group">
             <label class="form-label" for="title">Movie Title</label>
             <input class="form-input" type="text" id="title" name="title" th:value="${movie.title}"
@@ -156,7 +161,7 @@
 
         <div class="form-group">
             <label class="form-label" for="description">Description</label>
-            <textarea class="form-input" id="description" name="description" th:value="${movie.description}"
+            <textarea class="form-input" id="description" name="description" th:text="${movie.description}"
                       rows="4"
                       placeholder="Enter a brief movie description"></textarea>
         </div>

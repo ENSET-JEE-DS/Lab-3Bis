@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Collection</title>
     <style>
-        /* CSS Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -30,14 +29,89 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Header Styles */
+        /* Enhanced Header Styles */
         .page-header {
-            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
             margin-bottom: 30px;
-            color: #2c3e50;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Movie List Grid */
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(41, 128, 185, 0.2));
+            transform: skewY(-6deg);
+            z-index: 1;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Enhanced Search and Add Button Bar */
+        .search-add-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .search-bar form {
+            display: flex;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-bar input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 2px solid #3498db;
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input[type="text"]:focus {
+            outline: none;
+            border-color: #2980b9;
+        }
+
+        .search-bar input[type="submit"], .add-movie-btn {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: 2px solid #3498db;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .search-bar input[type="submit"]:hover, .add-movie-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Rest of the previous styles remain the same */
         .movie-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -88,21 +162,46 @@
             .movie-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+
+            .search-add-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-bar form {
+                width: 100%;
+            }
+
+            .add-movie-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <header class="page-header">
-        <h1>Our Movie Collection</h1>
+        <div class="page-header-content">
+            <h1>Our Movie Collection</h1>
+            <div class="search-add-bar">
+                <div class="search-bar">
+                    <form th:action="@{movies}" method="get">
+                        <label>
+                            <input type="text" name="keyword" placeholder="Search movies..." th:value="${keyword}">
+                        </label>
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+                <a th:href="@{/movies/add}" class="add-movie-btn">+ Add Movie</a>
+            </div>
+        </div>
     </header>
 
     <main>
         <div class="movie-grid" th:if="${not #lists.isEmpty(movies)}">
             <div class="movie-tile" th:each="movie : ${movies}">
                 <img th:src="${movie.img_url}"
-                     th:alt="${movie.title} + ' poster'"
-                     onerror="this.src='/path/to/default/poster.jpg'">
+                     th:alt="${movie.title} + ' poster'">
                 <a th:text="${movie.title}"
                    th:href="@{/movies/{id}(id=${movie.id})}">
                     Movie Title

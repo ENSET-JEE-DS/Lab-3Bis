@@ -124,6 +124,26 @@
             color: #3498db;
         }
 
+         .delete-btn {
+             color: #e74c3c;
+             font-weight: bold;
+             transition: color 0.3s ease;
+         }
+
+        .delete-btn:hover {
+            color: #c0392b;
+        }
+
+        /* Confirm delete dialog styling */
+        .delete-confirmation {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .movie-content {
@@ -186,8 +206,26 @@
         <div class="movie-nav">
             <a th:href="@{/movies}">Back to Movie List</a>
             <a th:href="@{/movies/{id}/edit(id=${movie.id})}">Edit Movie</a>
+            <a href="#" class="delete-btn" onclick="showDeleteConfirmation()">Delete Movie</a>
+        </div>
+
+        <div id="deleteConfirmation" class="delete-confirmation" style="display: none;">
+            Are you sure you want to delete this movie?
+            <form th:action="@{/movies/{id}/delete(id=${movie.id})}" method="GET">
+                <button type="submit">Confirm Delete</button>
+                <button type="button" onclick="hideDeleteConfirmation()">Cancel</button>
+            </form>
         </div>
     </footer>
 </div>
+<script>
+    function showDeleteConfirmation() {
+        document.getElementById('deleteConfirmation').style.display = 'block';
+    }
+
+    function hideDeleteConfirmation() {
+        document.getElementById('deleteConfirmation').style.display = 'none';
+    }
+</script>
 </body>
 </html>
