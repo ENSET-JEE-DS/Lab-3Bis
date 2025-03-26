@@ -2,38 +2,117 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Movies list</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Collection</title>
     <style>
+        /* CSS Reset and Base Styles */
         * {
-            font-family: Calibri, serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .movieList {
-            display: flex;
-            flex-direction: row;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
         }
 
-        .movieTile {
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        /* Movie List Grid */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Movie Tile Styles */
+        .movie-tile {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .movie-tile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-tile img {
+            max-width: 100%;
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .movie-tile a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .movie-tile a:hover {
+            color: #3498db;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
-<h1>This page represents the list of movies our application has.</h1>
+<div class="container">
+    <header class="page-header">
+        <h1>Our Movie Collection</h1>
+    </header>
 
-<div>
-    <div>
-        <h2>Movies</h2>
-    </div>
-    <div class="movieList" th:each="movie : ${movies}">
-        <div class="movieTile">
-            <img th:src="${movie.img_url}" th:alt="${movie.title}">
-            <a th:text="${movie.title}" th:href="@{/movies/{id}(id=${movie.id})}"></a>
+    <main>
+        <div class="movie-grid" th:if="${not #lists.isEmpty(movies)}">
+            <div class="movie-tile" th:each="movie : ${movies}">
+                <img th:src="${movie.img_url}"
+                     th:alt="${movie.title} + ' poster'"
+                     onerror="this.src='/path/to/default/poster.jpg'">
+                <a th:text="${movie.title}"
+                   th:href="@{/movies/{id}(id=${movie.id})}">
+                    Movie Title
+                </a>
+            </div>
         </div>
-    </div>
+        <div th:if="${#lists.isEmpty(movies)}" class="no-movies">
+            <p>No movies available in the collection.</p>
+        </div>
+    </main>
 </div>
 </body>
 </html>

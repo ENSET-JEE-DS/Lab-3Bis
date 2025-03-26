@@ -14,6 +14,9 @@ public class Movie {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String title;
-//    private String description;
+    private String director;
+    private int releaseYear;
+    private String genre;
+    private String description;
     private String img_url;
 }

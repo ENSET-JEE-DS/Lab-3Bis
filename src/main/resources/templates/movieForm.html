@@ -1,10 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Movie</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Form Styling */
+        .movie-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+                margin: 0 10px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="form-container">
+    <form class="movie-form" method="POST" th:action="@{${operation}}">
+        <div class="form-header">
+            <h1>Fill in the details of the movie</h1>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="title">Movie Title</label>
+            <input class="form-input" type="text" id="title" name="title" th:value="${movie.title}"
+                   placeholder="Enter movie title">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="director">Director</label>
+            <input class="form-input" type="text" id="director" name="director" th:value="${movie.director}"
+                   placeholder="Enter director name">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="releaseYear">Release Year</label>
+            <input class="form-input" type="number" id="releaseYear" name="releaseYear" th:value="${movie.releaseYear}"
+                   min="1900" max="2024"
+                   placeholder="Enter release year">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="genre">Genre</label>
+            <input class="form-input" type="text" id="genre" name="genre" th:value="${movie.genre}"
+                   placeholder="Enter movie genre">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-input" id="description" name="description" th:value="${movie.description}"
+                      rows="4"
+                      placeholder="Enter a brief movie description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="img_url">Poster URL</label>
+            <input class="form-input" type="url" id="img_url" name="img_url" th:value="${movie.img_url}"
+                   placeholder="Enter poster image URL">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Confirm Movie</button>
+            <button type="reset" class="btn btn-secondary">Reset Form</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

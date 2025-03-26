@@ -8,9 +8,7 @@ import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +33,29 @@ public class MovieController {
         model.addAttribute("movie", movie);
         return "movie";
     }
+
+    @GetMapping("/add")
+    public String addMovie(Model model) {
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("operation", "add");
+        return "movieForm";
+    }
+
+    @PostMapping("/add")
+    public String addMovie(@ModelAttribute Movie movie) {
+        System.out.println("Item that need to be added:");
+        System.out.println(movie);
+        movieRepository.save(movie);
+        System.out.println("Item added successfully");
+        return "redirect:/movies";
+    }
+
+//    @PostMapping("/{id}/edit")
+//    public String editMovie(@PathVariable String id, @ModelAttribute Movie movie) {
+//        movie.setId(id);
+//        movieRepository.save(movie);
+//        return "redirect:/movies/" + id;
+//    }
 
 
 }
